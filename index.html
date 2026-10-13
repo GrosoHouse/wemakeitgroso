@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GROSO Creative House</title>
+    <!-- Librería de Vimeo Player para rastrear el tiempo del video -->
+    <script src="https://player.vimeo.com/api/player.js"></script>
     <style>
         * {
             margin: 0;
@@ -66,7 +68,7 @@
         .nav-contacto { top: 40px; right: 40px; }
         .nav-nosotros { top: 50%; right: 40px; transform: translateY(-50%); }
         .nav-shop { bottom: 40px; right: 40px; }
-        .video-tag { bottom: 40px; left: 40px; font-size: 0.9rem; font-weight: 500; letter-spacing: 1px; text-transform: none; }
+        .video-tag { bottom: 40px; left: 40px; font-size: 0.9rem; font-weight: 500; letter-spacing: 1px; text-transform: none; z-index: 100; }
 
         .modal-overlay {
             position: absolute;
@@ -155,7 +157,8 @@
 
     <section class="hero">
         <div class="video-bg-container">
-            <iframe src="https://player.vimeo.com/video/1235256554?background=1&autoplay=1&loop=1&byline=0&title=0&muted=1" allow="autoplay; fullscreen" allowfullscreen></iframe>
+            <!-- Asignamos un ID 'vimeo-player' al iframe -->
+            <iframe id="vimeo-player" src="https://player.vimeo.com/video/1235256554?background=1&autoplay=1&loop=1&byline=0&title=0&muted=1" allow="autoplay; fullscreen" allowfullscreen></iframe>
         </div>
 
         <button class="menu-item brand-box" onclick="cerrarTodo()">
@@ -169,6 +172,7 @@
         <button class="menu-item nav-nosotros" onclick="abrirModal('modal-nosotros')">Nosotros</button>
         <button class="menu-item nav-shop" onclick="abrirModal('modal-shop')">Shop</button>
 
+        <!-- Texto dinámico inferior izquierdo -->
         <div id="nombre-trabajo" class="menu-item video-tag">Lali. No vayas a atender cuando el demonio llama.</div>
 
         <!-- VENTANA ARCHIVO -->
@@ -324,6 +328,25 @@
                 }
             });
         }
+
+        // Sincronización del texto inferior según el segundo del video de Vimeo
+        var iframe = document.getElementById('vimeo-player');
+        var player = new Vimeo.Player(iframe);
+        var etiquetaTag = document.getElementById('nombre-trabajo');
+
+        player.on('timeupdate', function(data) {
+            var segundos = data.seconds;
+
+            if (segundos >= 0 && segundos < 12.02) {
+                etiquetaTag.innerText = "Lali. No vayas a atender cuando el demonio llama.";
+            } else if (segundos >= 12.02 && segundos < 32.05) {
+                etiquetaTag.innerText = "Niki Nicole. Visualizer.";
+            } else if (segundos >= 32.05 && segundos < 52.07) {
+                etiquetaTag.innerText = "Princesa Alba. Visualizer.";
+            } else if (segundos >= 52.07) {
+                etiquetaTag.innerText = "47 STREET. Campaign.";
+            }
+        });
     </script>
 </body>
 </html>
