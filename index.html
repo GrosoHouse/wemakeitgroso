@@ -1,0 +1,210 @@
+¡Perfecto! Aquí tienes tu archivo index.html 100% corregido y listo.He solucionado todos los problemas de nombres que daban error 404:Video principal: Pasó de mis-videos/mi-video.mp4 a mis-videos/video.mp4.   Imágenes del Shop: Quité todos los espacios y mayúsculas de las rutas (ejemplo: remera-blanca.jpg, taza-negra.jpg, tazas-blancas.jpg, termo.jpg, tote-groso.jpg).   Código HTML completo corregidoCopia todo este bloque de código y reemplázalo completamente dentro de tu archivo index.html en Visual Studio Code:HTML<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GROSO Creative House</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body, html {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            overflow: hidden;
+            background-color: #000;
+            color: #fff;
+            width: 100%;
+            height: 100vh;
+        }
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+        #bg-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            object-fit: cover;
+        }
+        .menu-item {
+            position: absolute;
+            z-index: 100;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            color: #ffffff;
+            text-decoration: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .brand-box { top: 40px; left: 40px; display: flex; flex-direction: column; gap: 2px; text-align: left; }
+        .brand-box h1 { font-size: 1.1rem; font-weight: 800; letter-spacing: 2px; }
+        .brand-box p { font-size: 0.75rem; color: #b0b0b0; font-weight: 400; line-height: 1.3; letter-spacing: 1px; }
+
+        .nav-archivo { top: 40px; left: 50%; transform: translateX(-50%); }
+        .nav-contacto { top: 40px; right: 40px; }
+        .nav-nosotros { top: 50%; right: 40px; transform: translateY(-50%); }
+        .nav-shop { bottom: 40px; right: 40px; }
+        .video-tag { bottom: 40px; left: 40px; font-size: 0.9rem; font-weight: 500; letter-spacing: 1px; text-transform: none; }
+
+        .modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 50;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* CONTACTO: Filtro difuminado */
+        #modal-contacto {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+        }
+        .contacto-box { max-width: 600px; width: 90%; text-align: left; }
+        .contacto-box p { font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px; color: #fff; }
+        .contacto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .contacto-col h3 { font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: #888; margin-bottom: 10px; }
+        .contacto-col a, .contacto-col p { font-size: 1rem; color: #fff; text-decoration: none; font-weight: bold; }
+
+        /* NOSOTROS: Fondo azul liso */
+        #modal-nosotros { background-color: #1a42ca; }
+        .nosotros-content { max-width: 700px; text-align: center; padding: 20px; }
+        .nosotros-content h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 30px; letter-spacing: 1px; color: #ff5c00; }
+        .nosotros-content p { font-size: 1.2rem; line-height: 1.6; color: #ff5c00; font-weight: 500; }
+
+        /* SHOP: Fondo blanco liso */
+        #modal-shop { background-color: #ffffff; }
+        .shop-grid { display: flex; gap: 30px; justify-content: center; align-items: center; flex-wrap: wrap; padding: 80px 40px; width: 100%; }
+        .product-card { text-align: center; width: 180px; }
+        .product-card img { width: 160px; height: 160px; object-fit: contain; margin-bottom: 15px; }
+        .product-card p { font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: #000; }
+
+        .btn-close { position: absolute; top: 40px; right: 40px; font-size: 1.5rem; background: none; border: none; color: inherit; cursor: pointer; z-index: 120; }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <!-- Video de fondo principal continuo -->
+        <video autoplay muted loop playsinline id="bg-video">
+            <source src="mis-videos/video.mp4" type="video/mp4">
+        </video>
+
+        <!-- INTERFAZ DE LAS 4 ESQUINAS -->
+        <button class="menu-item brand-box" onclick="cerrarTodo()">
+            <h1>GROSO CREATIVE HOUSE</h1>
+            <p>We work globally,</p>
+            <p>we work groso.</p>
+        </button>
+
+        <button class="menu-item nav-archivo" onclick="cerrarTodo()">Archivo</button>
+        <button class="menu-item nav-contacto" onclick="abrirModal('modal-contacto')">Contacto</button>
+        <button class="menu-item nav-nosotros" onclick="abrirModal('modal-nosotros')">Nosotros</button>
+        <button class="menu-item nav-shop" onclick="abrirModal('modal-shop')">Shop</button>
+
+        <!-- Etiqueta inicial corregida -->
+        <div id="nombre-trabajo" class="menu-item video-tag">Lali. No vayas a atender cuando el demonio llama.</div>
+
+        <!-- VENTANA CONTACTO -->
+        <div id="modal-contacto" class="modal-overlay">
+            <button class="btn-close" onclick="cerrarTodo()">✕</button>
+            <div class="contacto-box">
+                <p>Buenos Aires Based - Working globaly groso.<br>We´d love to meet you</p>
+                <div class="contacto-grid">
+                    <div class="contacto-col">
+                        <h3>WHERE</h3>
+                        <p>Buenos Aires, CABA.</p>
+                    </div>
+                    <div class="contacto-col">
+                        <h3>WRITE US</h3>
+                        <a href="mailto:hellogrosohouse@gmail.com">hellogrosohouse@gmail.com</a>
+                    </div>
+                </div>
+                <div style="text-align: left; margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+                    <h3>INSTAGRAM</h3>
+                    <a href="https://instagram.com" target="_blank" style="color: #fff; text-decoration: none; font-weight: bold;">@groso.creative</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- VENTANA NOSOTROS -->
+        <div id="modal-nosotros" class="modal-overlay">
+            <style>
+                #modal-nosotros ~ .menu-item { color: #ff5c00 !important; }
+                #modal-nosotros ~ .brand-box p { color: #ff5c00 !important; }
+            </style>
+            <button class="btn-close" onclick="cerrarTodo()">✕</button>
+            <div class="nosotros-content">
+                <h2>GROSO is a creative house in service of the iconic.</h2>
+                <p>We operate at the intersection of music, fashion, and brand culture. Driven by the belief that imagination is a discipline and taste is a strategy, we collaborate with visionaries to build lasting legacies and new visual worlds.</p>
+            </div>
+        </div>
+
+        <!-- VENTANA SHOP -->
+        <div id="modal-shop" class="modal-overlay">
+            <style>
+                #modal-shop ~ .menu-item { color: #000000 !important; }
+                #modal-shop ~ .brand-box p { color: #666666 !important; }
+            </style>
+            <button class="btn-close" onclick="cerrarTodo()">✕</button>
+            <div class="shop-grid">
+                <div class="product-card"><img src="mis-videos/remera-blanca.jpg"><p>Remera Blanca Groso</p></div>
+                <div class="product-card"><img src="mis-videos/taza-negra.jpg"><p>Taza Negra</p></div>
+                <div class="product-card"><img src="mis-videos/tazas-blancas.jpg"><p>Tazas Blancas</p></div>
+                <div class="product-card"><img src="mis-videos/termo.jpg"><p>Termo</p></div>
+                <div class="product-card"><img src="mis-videos/tote-groso.jpg"><p>Tote Groso</p></div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function abrirModal(idModal) {
+            cerrarTodo();
+            document.getElementById(idModal).style.display = "flex";
+        }
+        
+        function cerrarTodo() {
+            let modales = document.querySelectorAll('.modal-overlay');
+            modales.forEach(modal => modal.style.display = "none");
+        }
+
+        const video = document.getElementById('bg-video');
+        const etiquetaTexto = document.getElementById('nombre-trabajo');
+
+        video.addEventListener('timeupdate', () => {
+            let tiempoActual = video.currentTime;
+            
+            // Condición de Lali corregida al español
+            if (tiempoActual >= 0 && tiempoActual < 12.03) {
+                etiquetaTexto.innerText = "Lali. No vayas a atender cuando el demonio llama.";
+            } 
+            else if (tiempoActual >= 12.03 && tiempoActual < 32.16) {
+                etiquetaTexto.innerText = "Niki Nicole. Visualizer.";
+            } 
+            else if (tiempoActual >= 32.16 && tiempoActual < 59.16) {
+                etiquetaTexto.innerText = "Princesa Alba - Visualizer.";
+            } 
+            else if (tiempoActual >= 59.16) {
+                etiquetaTexto.innerText = "47 street. Campaign.";
+            }
+        });
+    </script>
+</body>
+</html>
